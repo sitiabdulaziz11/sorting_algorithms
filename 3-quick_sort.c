@@ -38,20 +38,30 @@ void quick_sort_func(int *array, int low, int high)
  */
 int partition(int *array, int low, int high)
 {
-	int i = low - 1, pvt = array[high], j;
+	int pvt = array[high];
+	int start = low;
+	int end = high;
 
-	for (j = low; j <= high - 1; j++)
+	while (start < end)
 	{
-		if (array[j] < pvt)
+		while (array[start] <= pvt)
 		{
-			i++;
-			_swap(&array[i], &array[j]);
+			start++;
+		}
+		while (array[end] > pvt)
+		{
+			end--;
+		}
+		if (start < end)
+		{
+			_swap(&array[start], &array[end]);
 			print_array(array, high);
 		}
+		start++;
 	}
-	_swap(&array[i + 1], &array[high]);
+	_swap(&array[low], &array[end]);
 	print_array(array, high);
-	return (i + 1);
+	return (end);
 }
 /**
  * _swap - swap function.
@@ -60,7 +70,9 @@ int partition(int *array, int low, int high)
  */
 void _swap(int *a, int *b)
 {
-	int temp = *a;
+	int temp;
+
+	temp = *a;
 	*a = *b;
 	*b = temp;
 }
