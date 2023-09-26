@@ -39,29 +39,21 @@ void quick_sort_func(int *array, int low, int high)
 int partition(int *array, int low, int high)
 {
 	int pvt = array[high];
-	int start = low;
-	int end = high;
+	int start = (low - 1);
+	int j;
 
-	while (start < end)
+	for (j = low; j < high; j++)
 	{
-		while (array[start] <= pvt)
+		if (array[j] <= pvt)
 		{
 			start++;
-		}
-		while (array[end] > pvt)
-		{
-			end--;
-		}
-		if (start < end)
-		{
-			_swap(&array[start], &array[end]);
+			_swap(&array[start], &array[j]);
 			print_array(array, high);
 		}
-		start++;
 	}
-	_swap(&array[low], &array[end]);
+	_swap(&array[start + 1], &array[high]);
 	print_array(array, high);
-	return (end);
+	return (start + 1);
 }
 /**
  * _swap - swap function.
